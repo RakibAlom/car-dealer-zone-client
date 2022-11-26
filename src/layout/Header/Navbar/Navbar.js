@@ -10,6 +10,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut()
       .then(res => {
+
         toast.success('Logout Successfully Done!')
       })
       .catch(err => {
@@ -54,10 +55,16 @@ const Navbar = () => {
                 <div className="dropdown dropdown-end">
                   <label tabIndex={0}>
                     <div className="w-7 rounded-full cursor-pointer">
-                      <img className='rounded-full' src="https://placeimg.com/80/80/people" alt="" />
+                      <img className='rounded-full' src={user.photoURL} alt={user.displayName} />
                     </div>
                   </label>
                   <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                    <li>
+                      <span className='flex-col items-start	cursor-default'>
+                        <span className='font-medium'>{user.displayName}</span>
+                        <span className='small text-gray-500'>{user.email}</span>
+                      </span>
+                    </li>
                     <li><button onClick={() => handleLogOut()}>Logout</button></li>
                   </ul>
                 </div>
