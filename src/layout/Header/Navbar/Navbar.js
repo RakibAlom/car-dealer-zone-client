@@ -30,18 +30,18 @@ const Navbar = () => {
           </div>
 
           <div className="flex-none gap-4">
-            <ul class="menu menu-horizontal p-0 gap-4">
-              <li><Link to="" className='rounded-full bg-white drop-shadow btn-sm'>Login</Link></li>
-              <li><Link to="" className='rounded-full bg-white drop-shadow btn-sm'>Register</Link></li>
+            <ul class="menu menu-horizontal p-0 gap-4 font-medium">
+              <li><NavLink to="/login" className='rounded-full bg-white drop-shadow btn-sm'>Login</NavLink></li>
+              <li><NavLink to="/register" className='rounded-full bg-white drop-shadow btn-sm'>Register</NavLink></li>
             </ul>
             <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar btn-sm">
-                <div className="w-10 rounded-full">
-                  <img src="https://placeimg.com/80/80/people" alt="" />
+              <label tabIndex={0}>
+                <div className="w-7 rounded-full cursor-pointer">
+                  <img className='rounded-full' src="https://placeimg.com/80/80/people" alt="" />
                 </div>
               </label>
               <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                <li><Link to="/dashboard">Dashboard</Link></li>
+                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                 <li><button >Logout</button></li>
               </ul>
             </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
       <div className="navbar bg-[#f06425] py-2 hidden lg:flex">
         <div className="md:container md:mx-auto">
           <div className="navbar-center w-full">
-            <ul className="menu menu-horizontal p-0 w-full flex justify-between text-white">
+            <ul className="menu menu-horizontal p-0 w-full flex justify-between text-white font-medium">
               {menuItems}
             </ul>
           </div>
