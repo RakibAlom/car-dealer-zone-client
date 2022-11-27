@@ -103,7 +103,7 @@ const Register = () => {
   return (
     <>
       <div className="bg-gray-100">
-        <div className='md:container md:mx-auto py-10'>
+        <div className='container md:mx-auto py-10'>
           <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
             <div className="hidden bg-cover lg:block lg:w-1/2" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1609138313399-483a87777a39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80')" }}></div>
 
@@ -120,7 +120,7 @@ const Register = () => {
 
               <form className="mt-6" onSubmit={handleSubmit(handleRegister)}>
                 <div>
-                  <label htmlFor="userType" className="block text-sm text-gray-800 dark:text-gray-200">Account Type</label>
+                  <label htmlhtmlFor="userType" className="block text-sm text-gray-800 dark:text-gray-200">Account Type</label>
                   <select {...register("userType", {
                     required: "User Type is Required"
                   })} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
@@ -132,21 +132,21 @@ const Register = () => {
                 </div>
 
                 <div className="mt-4">
-                  <label htmlFor="name" className="block text-sm text-gray-800 dark:text-gray-200">Name</label>
+                  <label htmlhtmlFor="name" className="block text-sm text-gray-800 dark:text-gray-200">Name</label>
                   <input type="text" {...register("name", {
                     required: "Name is Required"
                   })} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
                   {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                 </div>
                 <div className="mt-4">
-                  <label htmlFor="email" className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
+                  <label htmlhtmlFor="email" className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
                   <input type="email" {...register("email", {
                     required: "Email is Required"
                   })} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required />
                   {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                 </div>
                 <div className="mt-4">
-                  <label htmlFor="avatar" className="block text-sm text-gray-800 dark:text-gray-200">Avatar</label>
+                  <label htmlhtmlFor="avatar" className="block text-sm text-gray-800 dark:text-gray-200">Avatar</label>
                   <input type="file" {...register("avatar", {
                     required: "Your avatar is Required"
                   })} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" required />
@@ -154,7 +154,7 @@ const Register = () => {
                 </div>
                 <div className="mt-4">
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
+                    <label htmlhtmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
                   </div>
                   <input type="password" {...register("password", {
                     required: "password is Required",

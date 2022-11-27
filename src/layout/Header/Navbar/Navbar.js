@@ -61,7 +61,7 @@ const Navbar = () => {
   return (
     <>
       {/* TOP NAVBAR */}
-      <div className="md:container md:mx-auto">
+      <div className="container md:mx-auto">
         <div className="navbar bg-base-100 px-0 py-3">
           <div className="navbar-start flex-1 lg:hidden">
             <div className="dropdown">
@@ -114,7 +114,7 @@ const Navbar = () => {
 
       {/* MAIN NAVBAR */}
       <div className="navbar bg-[#f06425] py-2 hidden lg:flex sticky top-0">
-        <div className="md:container md:mx-auto">
+        <div className="container md:mx-auto">
           <div className="navbar-center w-full">
             <ul className="menu menu-horizontal p-0 w-full flex justify-between text-white font-medium">
               {menuItems}

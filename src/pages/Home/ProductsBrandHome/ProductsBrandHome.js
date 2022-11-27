@@ -17,7 +17,7 @@ const ProductsBrandHome = () => {
 
   return (
     <div className="">
-      <div className='md:container md:mx-auto'>
+      <div className='container md:mx-auto'>
         <div className="advertise-section py-10">
           <div className='flex justify-between w-full'>
             <h2 className='text-2xl font-bold'>Cars <span className='text-[#f06425]'>Brand</span></h2>

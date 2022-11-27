@@ -6,7 +6,7 @@ const Footer = () => {
     <>
 
       <footer className="p-10 bg-base-200">
-        <div className="md:container md:mx-auto">
+        <div className="container md:mx-auto">
 
 
           <div className='pb-5'>
