@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
@@ -6,6 +7,27 @@ import './Navbar.css'
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [brands, setBrands] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/categories`)
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data)
+        setLoading(false)
+      })
+  }, [])
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/brands`)
+      .then(res => res.json())
+      .then(data => {
+        setBrands(data)
+        setLoading(false)
+      })
+  }, [])
 
   const handleLogOut = () => {
     logOut()
@@ -21,6 +43,16 @@ const Navbar = () => {
 
   const menuItems = <>
     <li><NavLink className="rounded btn-sm " to="/">Home</NavLink></li>
+    {
+      categories.filter(item => item.menuStatus === 'active').map((item, i) =>
+        <li key={i}><NavLink className="rounded btn-sm " to={`/category/${item.slug}`}>{item.name}</NavLink></li>
+      )
+    }
+    {
+      brands.filter(item => item.menuStatus === 'active').map((item, i) =>
+        <li key={i}><NavLink className="rounded btn-sm " to={`/brand/${item.slug}`}>{item.name}</NavLink></li>
+      )
+    }
     <li><NavLink className="rounded btn-sm " to="/blog">Blog</NavLink></li>
     <li><NavLink className="rounded btn-sm " to="/about">About</NavLink></li>
     <li><NavLink className="rounded btn-sm " to="/contact">Contact</NavLink></li>

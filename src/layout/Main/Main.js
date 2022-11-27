@@ -13,10 +13,12 @@ const Main = () => {
   }, [pathname])
   return (
     <>
-      <Header></Header>
-      <Outlet></Outlet>
-      <Footer></Footer>
-      <Toaster />
+      <div>
+        <Header></Header>
+        <Outlet></Outlet>
+        <Footer></Footer>
+        <Toaster />
+      </div>
     </>
   );
 };

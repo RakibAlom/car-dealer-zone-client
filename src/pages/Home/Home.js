@@ -1,8 +1,9 @@
 import React from 'react';
-import ContactMap from '../Contact/ContactMap/ContactMap';
 import AdvetiseProducts from './AdvertiseProducts/AdvetiseProducts';
 import Banner from './Banner/Banner';
 import ProductsBrandHome from './ProductsBrandHome/ProductsBrandHome';
+import ProductsCategoryHome from './ProductsCategoryHome/ProductsCategoryHome';
+import ProductsHome from './ProductsHome/ProductsHome';
 
 const Home = () => {
   return (
@@ -10,7 +11,9 @@ const Home = () => {
       <div className="">
         <Banner></Banner>
         <AdvetiseProducts></AdvetiseProducts>
+        <ProductsCategoryHome></ProductsCategoryHome>
         <ProductsBrandHome></ProductsBrandHome>
+        <ProductsHome></ProductsHome>
       </div>
     </>
   );
