@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import DashboardFooter from '../DashboardLayout/DashboardFooter/DashboardFooter';
-import DashboardHeader from '../DashboardLayout/DashboardHeader/DashboardHeader';
-import DashboardSideNavbar from './DashboardSideNavbar/DashboardSideNavbar';
+import React from 'react';
 
 const Dashboard = () => {
-
-  const [hidden, setHidden] = useState(true)
-
   return (
     <>
       <div className='h-96 text-center'>

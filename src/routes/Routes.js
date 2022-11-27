@@ -3,11 +3,15 @@ import Login from "../auth/Login/Login";
 import Register from "../auth/Register/Register";
 import Dashboard from "../dashboard/Dashboard/Dashboard";
 import DashboardMain from "../dashboard/DashboardLayout/DashboardMain/DashboardMain";
+import Users from "../dashboard/Users/Users";
 import Main from "../layout/Main/Main";
 import NotFound404 from "../others/NotFound404/NotFound404";
 import About from "../pages/About/About";
 import Blog from "../pages/Blog/Blog";
 import Home from "../pages/Home/Home";
+import AdminRoutes from "./AdminRoutes/AdminRoutes";
+import AdminRoute from "./AdminRoutes/AdminRoutes";
+import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +51,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>
+        element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
+      },
+      {
+        path: '/dashboard/users',
+        element: <AdminRoutes><Users></Users></AdminRoutes>
       }
     ]
   }

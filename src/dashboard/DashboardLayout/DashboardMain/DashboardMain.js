@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 import DashboardSideNavbar from '../../Dashboard/DashboardSideNavbar/DashboardSideNavbar';
 import DashboardFooter from '../DashboardFooter/DashboardFooter';
@@ -27,7 +28,7 @@ const DashboardMain = () => {
           <DashboardFooter></DashboardFooter>
         </div>
       </div>
-
+      <Toaster></Toaster>
     </>
   );
 };
