@@ -65,7 +65,8 @@ const Register = () => {
                     name: data.name,
                     email: data.email,
                     avatar: imgData.data.url,
-                    uid: user.uid
+                    uid: user.uid,
+                    verified: false
                   }
                   fetch('http://localhost:5000/user', {
                     method: 'POST',

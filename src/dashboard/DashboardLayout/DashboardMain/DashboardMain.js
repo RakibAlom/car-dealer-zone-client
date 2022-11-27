@@ -19,7 +19,7 @@ const DashboardMain = () => {
           <main>
             <div className="pt-6 px-4">
               <div className="w-full">
-                <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2">
+                <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 2xl:col-span-2 min-h-full">
                   <Outlet></Outlet>
                 </div>
               </div>

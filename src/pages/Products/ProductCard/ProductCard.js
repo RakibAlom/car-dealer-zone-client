@@ -3,9 +3,9 @@ import React from 'react';
 const ProductCard = () => {
   return (
     <>
-      <div className="col-span-4">
+      <div className="col-span-12 md:col-span-6 lg:col-span-3">
         <div className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-          <img className="object-cover object-center w-full h-56" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="avatar" />
+          <img className="object-cover object-center w-full h-56" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=htmlFor=mat&fit=crop&w=334&q=80" alt="avatar" />
 
           <div className="px-4 py-4">
             <span className='text-gray-500 text-sm font-semibold'>Nissan</span>

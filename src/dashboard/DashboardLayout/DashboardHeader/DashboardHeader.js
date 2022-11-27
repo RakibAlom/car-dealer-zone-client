@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 const DashboardHeader = ({ hidden, setHidden }) => {
@@ -21,7 +21,7 @@ const DashboardHeader = ({ hidden, setHidden }) => {
               </Link>
             </div>
             <div className="flex items-center">
-              <Link to="/" className="hidden sm:inline-flex ml-5 text-white bg-[#f06425] hover:bg-[#f06425] focus:ring-4 focus:ring-cyan-200 btn-sm font-medium rounded text-sm px-5 py-2.5 text-center items-center mr-3">
+              <Link to="/" className="hidden sm:inline-flex ml-5 text-white bg-[#f06425] hover:bg-[#FF731D] focus:ring-4 focus:ring-cyan-200 btn-sm font-medium rounded text-sm px-5 py-2.5 text-center items-center mr-3">
                 Visit Store
               </Link>
             </div>

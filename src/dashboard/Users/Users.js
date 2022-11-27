@@ -12,10 +12,11 @@ const Users = () => {
   const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users`)
+      const res = await fetch(`http://localhost:5000/seller`)
       const data = await res.json()
       return data
     }
+
   })
 
   const handleMakeAdmin = (user) => {
@@ -38,6 +39,7 @@ const Users = () => {
       })
   }
 
+
   const handleUserDelete = (user) => {
     fetch(`http://localhost:5000/user/${user._id}`, {
       method: 'DELETE',
@@ -58,12 +60,9 @@ const Users = () => {
       })
   }
 
-  if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>
-  }
-
   return (
     <>
+
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           <thead>
@@ -101,19 +100,21 @@ const Users = () => {
                     {user?.userType === 'admin' ?
                       <button className="btn btn-sm rounded text-white" disabled>Admin</button>
                       :
-                      <label htmlFor="confirmAlert" onClick={() => setMakeAdmin(user)} className="btn btn-sm btn-primary rounded text-white">Make Admin</label>
+                      <label htmlhtmlFor="confirmAlert" onClick={() => setMakeAdmin(user)} className="btn btn-sm btn-primary rounded text-white">Make Admin</label>
                     }
                   </td>
                   <th>
-                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)} disabled={user?.userType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
+                    <label htmlhtmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)} disabled={user?.userType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
                   </th>
                 </tr>
               )
             }
-
           </tbody>
         </table>
-      </div>
+        {
+          isLoading && <LoadingSpinner></LoadingSpinner>
+        }
+      </div >
 
       {
         makeAdmin && <ConfrimAlert
