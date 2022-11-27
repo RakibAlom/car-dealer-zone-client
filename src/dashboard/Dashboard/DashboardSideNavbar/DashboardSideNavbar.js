@@ -36,7 +36,7 @@ const DashboardSideNavbar = ({ hidden, setHidden }) => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to='/dashboard' className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                  <NavLink to='/dashboard/products' className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
                     <FaCar className="text-xl text-gray-500"></FaCar>
                     <span className="ml-3 flex-1 whitespace-nowrap">My Products</span>
                   </NavLink>

@@ -62,8 +62,8 @@ const Users = () => {
 
   return (
     <>
-
       <div className="overflow-x-auto w-full">
+        <h3 className="text-lg font-medium leading-6 text-gray-900 pb-5">All Users</h3>
         <table className="table w-full">
           <thead>
             <tr>
