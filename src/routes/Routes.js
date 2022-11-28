@@ -4,6 +4,7 @@ import Register from "../auth/Register/Register";
 import Booking from "../dashboard/Booking/Booking";
 import Dashboard from "../dashboard/Dashboard/Dashboard";
 import DashboardMain from "../dashboard/DashboardLayout/DashboardMain/DashboardMain";
+import Payment from "../dashboard/Payment/Payment";
 import AddProduct from "../dashboard/Products/AddProduct/AddProduct";
 import MyProducts from "../dashboard/Products/MyProducts/MyProducts";
 import Buyers from "../dashboard/Users/Buyers/Buyers";
@@ -41,16 +42,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/category/:slug',
-        loader: ({ params }) => fetch(`http://localhost:5000/category/${params.slug}`),
-        element: <CategoryProducts></CategoryProducts>
+        loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/category/${params.slug}`),
+        element: <PrivateRoutes><CategoryProducts></CategoryProducts></PrivateRoutes>
       },
       {
         path: '/brand',
-        element: <ProductsBrand></ProductsBrand>
+        element: <PrivateRoutes><ProductsBrand></ProductsBrand></PrivateRoutes>
       },
       {
         path: '/brand/:slug',
-        loader: ({ params }) => fetch(`http://localhost:5000/brand/${params.slug}`),
+        loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/brand/${params.slug}`),
         element: <BrandProducts></BrandProducts>
       },
       {
@@ -111,8 +112,8 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/payment/:id',
-        element: <Payment></Payment>,
-        loader: ({ params }) => fetch(`https://doctors-portal-server-rust.vercel.app/bookings/${params.id}`)
+        element: <PrivateRoutes><Payment></Payment></PrivateRoutes>,
+        loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/booking/${params.id}`)
       }
     ]
   }

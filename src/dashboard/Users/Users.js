@@ -12,14 +12,14 @@ const Users = () => {
   const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users`)
+      const res = await fetch(`https://car-dealer-zone-server.vercel.app/users`)
       const data = await res.json()
       return data
     }
   })
 
   const handleMakeAdmin = (user) => {
-    fetch(`http://localhost:5000/user/make-admin/${user._id}`, {
+    fetch(`https://car-dealer-zone-server.vercel.app/user/make-admin/${user._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -40,7 +40,7 @@ const Users = () => {
 
 
   const handleUserDelete = (user) => {
-    fetch(`http://localhost:5000/user/${user._id}`, {
+    fetch(`https://car-dealer-zone-server.vercel.app/user/${user._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`

@@ -15,7 +15,7 @@ const Booking = () => {
   const { data: bookings = [], refetch, isLoading } = useQuery({
     queryKey: ['bookings', user?.uid],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/booking?uid=${user.uid}`, {
+      const res = await fetch(`https://car-dealer-zone-server.vercel.app/booking?uid=${user.uid}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem('access-token')}`
         }
@@ -27,7 +27,7 @@ const Booking = () => {
 
   const handleBookingDelete = (booking) => {
     setLoading(true)
-    fetch(`http://localhost:5000/booking/${booking._id}`, {
+    fetch(`https://car-dealer-zone-server.vercel.app/booking/${booking._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`

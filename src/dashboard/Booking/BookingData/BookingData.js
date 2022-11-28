@@ -7,7 +7,7 @@ const BookingData = ({ booking, setDeleteBooking, count }) => {
   const [bookingPorduct, setBookingPorduct] = useState(null)
   useEffect(() => {
     setLoading(true)
-    fetch(`http://localhost:5000/product/${productId}`)
+    fetch(`https://car-dealer-zone-server.vercel.app/product/${productId}`)
       .then(res => res.json())
       .then(data => {
         setBookingPorduct(data)

@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
   const { name, sellPrice, category, brand, mileage, fuelType, addDate, transmission, productThumbnail, sellerName, sellerId } = product;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${sellerId}`)
+    fetch(`https://car-dealer-zone-server.vercel.app/user/${sellerId}`)
       .then(res => res.json())
       .then(data => {
         setProductSeller(data)

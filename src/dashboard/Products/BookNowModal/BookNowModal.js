@@ -31,7 +31,7 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
       BookingDate: date,
     }
     // save doctor information to the database
-    fetch('http://localhost:5000/booking', {
+    fetch('https://car-dealer-zone-server.vercel.app/booking', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

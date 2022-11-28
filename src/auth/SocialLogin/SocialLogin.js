@@ -19,7 +19,7 @@ const SocialLogin = () => {
           uid: user.uid
         }
         // get jwt token
-        fetch('http://localhost:5000/jwt', {
+        fetch('https://car-dealer-zone-server.vercel.app/jwt', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

@@ -10,7 +10,7 @@ const DashboardSideNavbar = ({ hidden }) => {
   console.log(user)
   const [auth, setAuth] = useState(null);
   useEffect(() => {
-    fetch(`http://localhost:5000/user/1eepeOoTPahvmHADnCYffDMLcun1`)
+    fetch(`https://car-dealer-zone-server.vercel.app/user/1eepeOoTPahvmHADnCYffDMLcun1`)
       .then(res => res.json())
       .then(data => {
         setAuth(data)
