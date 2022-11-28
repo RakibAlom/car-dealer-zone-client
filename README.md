@@ -1,12 +1,19 @@
+
 # Car Delar Zone Server
 Car Delar Zone : Buy & Sell New cars, Used cars, Reconditioned cars in Planet.
+
 ## Live Site
+
 **Website Link:** https://car-dealer-zone.web.app/
 **Server Link:** https://car-dealer-zone-server.vercel.app/
+
 ## Admin Information
-adminEmail: admin@car.com
-adminPassword: admin1234
+
+**adminEmail:** admin@car.com
+**adminPassword:** admin1234
+
 ## Feautres
+
 - Car Resell Service
 - Firebase Authentication
 - Express JS,
@@ -22,8 +29,11 @@ adminPassword: admin1234
 - Registration page.
 - Blog page.
 - 404 page creation.
+
 ## Authentication System
 - Email & Password
 - Google Login
+
 ## Copyright
-Car Dealer Zone - © Rakib Alom
+
+**Car Dealer Zone** - © Rakib Alom
