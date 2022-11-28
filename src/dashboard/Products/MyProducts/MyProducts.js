@@ -6,8 +6,10 @@ import ConfrimAlert from '../../utilities/ConfirmAlert/ConfrimAlert';
 import LoadingSpinner from '../../utilities/LoadingSpinner/LoadingSpinner';
 
 const MyProducts = () => {
-  const [deleteProduct, setDeleteProduct] = useState(null)
-  const [ads, setAds] = useState(null)
+  const [deleteProduct, setDeleteProduct] = useState('')
+  const [ads, setAds] = useState('')
+  const [removeAds, setRemove] = useState('')
+  const [loading, setLoading] = useState(false);
 
   const { data: products = [], refetch, isLoading } = useQuery({
     queryKey: ['products'],
@@ -20,7 +22,8 @@ const MyProducts = () => {
   })
 
   const handleAds = (product) => {
-    fetch(`http://localhost:5000/product/${product._id}`, {
+    setLoading(true)
+    fetch(`http://localhost:5000/product/get-ads/${product._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -29,7 +32,30 @@ const MyProducts = () => {
       .then(res => res.json())
       .then(data => {
         if (data.modifiedCount > 0) {
-          toast.success(`${product.name} maked admin successfully.`)
+          toast.success(`${product.name} ads published`)
+          setLoading(false)
+          refetch();
+        }
+      })
+      .catch(err => {
+        console.error(err.message)
+        toast.error('Something happened wrong!')
+      })
+  }
+
+  const handleRemoveAds = (product) => {
+    setLoading(true)
+    fetch(`http://localhost:5000/product/remove-ads/${removeAds._id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem('access-token')}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.modifiedCount > 0) {
+          toast.success(`${product.name} ads removed`)
+          setLoading(false)
           refetch();
         }
       })
@@ -41,6 +67,7 @@ const MyProducts = () => {
 
 
   const handleproductDelete = (product) => {
+    setLoading(true)
     fetch(`http://localhost:5000/product/${product._id}`, {
       method: 'DELETE',
       headers: {
@@ -51,6 +78,7 @@ const MyProducts = () => {
       .then(data => {
         if (data.deletedCount > 0) {
           refetch()
+          setLoading(false)
           toast.success(`product ${product.name} deleted successfully!`)
         }
       })
@@ -59,7 +87,6 @@ const MyProducts = () => {
         toast.error('Something happened wrong!')
       })
   }
-
   return (
     <>
 
@@ -108,14 +135,17 @@ const MyProducts = () => {
                     }
                   </td>
                   <td>
-                    {product?.adsStatus === 'yes' ?
-                      <label htmlhtmlFor="confirmAlert" onClick={() => setAds(product)} className="btn btn-sm btn-warning rounded text-white">Remove Ads</label>
-                      :
-                      <label htmlhtmlFor="confirmAlert" onClick={() => setAds(product)} className="btn btn-sm btn-primary rounded text-white">Get Ads</label>
+                    {
+                      product?.sellStatus === 'sold' ? null :
+                        product?.adsStatus === 'yes' ?
+                          <label htmlFor="ConfirmRemoveAds" onClick={() => setRemove(product)} className="btn btn-sm btn-warning rounded text-white">Remove Ads</label>
+                          :
+                          <label htmlFor="ConfirmAds" onClick={() => setAds(product)} className="btn btn-sm btn-primary rounded text-white">Get Ads</label>
                     }
+
                   </td>
                   <th>
-                    <label htmlhtmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteProduct(product)} disabled={product?.productType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
+                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteProduct(product)} disabled={product?.productType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
                   </th>
                 </tr>
               )
@@ -123,13 +153,14 @@ const MyProducts = () => {
           </tbody>
         </table>
         {
-          isLoading && <LoadingSpinner></LoadingSpinner>
+          loading && <LoadingSpinner></LoadingSpinner>
         }
       </div >
 
       {
         ads && <ConfrimAlert
-          title={`Make sure, you want shaw add?`}
+          htmlFor="ConfirmAds"
+          title={`Make sure, you want to publish Ads?`}
           message={`If you make it, you will be see the product ads on store`}
           successAction={handleAds}
           successButtonName="Confirm"
@@ -139,7 +170,20 @@ const MyProducts = () => {
       }
 
       {
+        removeAds && <ConfrimAlert
+          htmlFor="ConfirmRemoveAds"
+          title={`Make sure, you want to removed Ads?`}
+          message={`If you make it, you can't see the product ads on store`}
+          successAction={handleRemoveAds}
+          successButtonName="Confirm"
+          modalData={ads}
+        >
+        </ConfrimAlert>
+      }
+
+      {
         deleteProduct && <ConfrimAlert
+          htmlFor="confirmAlert"
           title={`Are you sure want to delete?`}
           message={`If you delete ${deleteProduct.name}, it cannot be undone.`}
           successAction={handleproductDelete}

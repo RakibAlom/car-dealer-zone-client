@@ -42,9 +42,21 @@ const DashboardSideNavbar = ({ hidden, setHidden }) => {
                   </NavLink>
                 </li>
                 <li>
+                  <NavLink to='/dashboard/sellers' className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                    <FaUsers className="text-xl text-gray-500"></FaUsers>
+                    <span className="ml-3 flex-1 whitespace-nowrap">All Sellers</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to='/dashboard/buyers' className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                    <FaUsers className="text-xl text-gray-500"></FaUsers>
+                    <span className="ml-3 flex-1 whitespace-nowrap">All Buyers</span>
+                  </NavLink>
+                </li>
+                <li>
                   <NavLink to='/dashboard/users' className="text-base text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
                     <FaUsers className="text-xl text-gray-500"></FaUsers>
-                    <span className="ml-3 flex-1 whitespace-nowrap">Users</span>
+                    <span className="ml-3 flex-1 whitespace-nowrap">All Users</span>
                   </NavLink>
                 </li>
                 <hr />

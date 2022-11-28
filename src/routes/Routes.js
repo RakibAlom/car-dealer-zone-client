@@ -5,6 +5,8 @@ import Dashboard from "../dashboard/Dashboard/Dashboard";
 import DashboardMain from "../dashboard/DashboardLayout/DashboardMain/DashboardMain";
 import AddProduct from "../dashboard/Products/AddProduct/AddProduct";
 import MyProducts from "../dashboard/Products/MyProducts/MyProducts";
+import Buyers from "../dashboard/Users/Buyers/Buyers";
+import Sellers from "../dashboard/Users/Sellers/Sellers";
 import Users from "../dashboard/Users/Users";
 import Main from "../layout/Main/Main";
 import NotFound404 from "../others/NotFound404/NotFound404";
@@ -63,6 +65,15 @@ const router = createBrowserRouter([
         path: '/dashboard/add-product',
         element: <AdminRoutes><AddProduct></AddProduct></AdminRoutes>
       },
+      {
+        path: '/dashboard/sellers',
+        element: <AdminRoutes><Sellers></Sellers></AdminRoutes>
+      },
+      {
+        path: '/dashboard/buyers',
+        element: <AdminRoutes><Buyers></Buyers></AdminRoutes>
+      }
+      ,
       {
         path: '/dashboard/users',
         element: <AdminRoutes><Users></Users></AdminRoutes>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns'
 import { useQuery } from '@tanstack/react-query';
@@ -67,7 +67,6 @@ const AddProduct = () => {
             addDate: date,
             sellerId: user.uid,
             sellerName: user.displayName,
-            sellStatus: null
           }
 
           // save doctor information to the database
@@ -121,10 +120,10 @@ const AddProduct = () => {
                     <select id="category" {...register("category", {
                       required: "Category required"
                     })} className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm" required>
-                      <option value="null" selected>Select Category</option>
+                      <option defaultValue="">Select Category</option>
                       {
                         categories.map((category, i) =>
-                          <option value={category.name} key={i}>{category.name}</option>
+                          <option defaultValue={category.name} key={i}>{category.name}</option>
                         )
                       }
                     </select>
@@ -136,10 +135,10 @@ const AddProduct = () => {
                     <select id="brand" {...register("brand", {
                       required: "Brand required"
                     })} className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm" required>
-                      <option value="null" selected>Select Brand</option>
+                      <option defaultValue="">Select Brand</option>
                       {
                         brands.map((brand, i) =>
-                          <option value={brand.name} key={i}>{brand.name}</option>
+                          <option defaultValue={brand.name} key={i}>{brand.name}</option>
                         )
                       }
                     </select>
@@ -204,8 +203,8 @@ const AddProduct = () => {
                   <div className="col-span-6 md:col-span-3">
                     <label htmlFor="adsStatus" className="block text-sm font-medium text-gray-700 mb-2">Want to shoaw as a Ads?</label>
                     <select id="adsStatus" {...register("adsStatus")} autoComplete="adsStatus" className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm">
-                      <option value="no">No</option>
-                      <option value="yes">Yes</option>
+                      <option defaultValue="no">No</option>
+                      <option defaultValue="yes">Yes</option>
                     </select>
                   </div >
 

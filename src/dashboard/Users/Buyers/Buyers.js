@@ -2,17 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaTrashAlt } from 'react-icons/fa';
-import ConfrimAlert from '../utilities/ConfirmAlert/ConfrimAlert';
-import LoadingSpinner from '../utilities/LoadingSpinner/LoadingSpinner';
+import ConfrimAlert from '../../utilities/ConfirmAlert/ConfrimAlert';
+import LoadingSpinner from '../../utilities/LoadingSpinner/LoadingSpinner';
 
-const Users = () => {
+const Buyers = () => {
   const [deleteUser, setDeleteUser] = useState(null)
   const [makeAdmin, setMakeAdmin] = useState(null)
 
   const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users`)
+      const userType = 'buyer'
+      const res = await fetch(`http://localhost:5000/users?userType=${userType}`)
       const data = await res.json()
       return data
     }
@@ -144,4 +145,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Buyers;
