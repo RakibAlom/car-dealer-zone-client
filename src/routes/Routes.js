@@ -13,8 +13,12 @@ import NotFound404 from "../others/NotFound404/NotFound404";
 import About from "../pages/About/About";
 import Blog from "../pages/Blog/Blog";
 import Home from "../pages/Home/Home";
+import Products from "../pages/Products/Products";
+import BrandProducts from "../pages/Products/ProductsBrand/BrandProducts/BrandProducts";
+import ProductsBrand from "../pages/Products/ProductsBrand/ProductsBrand";
+import CategoryProducts from "../pages/Products/ProductsCategory/CategoryProducts/CategoryProducts";
+import ProductsCategory from "../pages/Products/ProductsCategory/ProductsCategory";
 import AdminRoutes from "./AdminRoutes/AdminRoutes";
-import AdminRoute from "./AdminRoutes/AdminRoutes";
 import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -25,6 +29,28 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>
+      },
+      {
+        path: '/cars',
+        element: <Products></Products>
+      },
+      {
+        path: '/category',
+        element: <ProductsCategory></ProductsCategory>
+      },
+      {
+        path: '/category/:slug',
+        loader: ({ params }) => fetch(`http://localhost:5000/category/${params.slug}`),
+        element: <CategoryProducts></CategoryProducts>
+      },
+      {
+        path: '/brand',
+        element: <ProductsBrand></ProductsBrand>
+      },
+      {
+        path: '/brand/:slug',
+        loader: ({ params }) => fetch(`http://localhost:5000/brand/${params.slug}`),
+        element: <BrandProducts></BrandProducts>
       },
       {
         path: '/blog',
@@ -59,11 +85,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/products',
-        element: <AdminRoutes><MyProducts></MyProducts></AdminRoutes>
+        element: <PrivateRoutes><MyProducts></MyProducts></PrivateRoutes>
       },
       {
         path: '/dashboard/add-product',
-        element: <AdminRoutes><AddProduct></AddProduct></AdminRoutes>
+        element: <PrivateRoutes><AddProduct></AddProduct></PrivateRoutes>
       },
       {
         path: '/dashboard/sellers',

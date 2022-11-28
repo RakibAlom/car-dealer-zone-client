@@ -1,20 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaTrashAlt } from 'react-icons/fa';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import ConfrimAlert from '../../utilities/ConfirmAlert/ConfrimAlert';
 import LoadingSpinner from '../../utilities/LoadingSpinner/LoadingSpinner';
 
 const MyProducts = () => {
+  const { user } = useContext(AuthContext)
   const [deleteProduct, setDeleteProduct] = useState('')
   const [ads, setAds] = useState('')
   const [removeAds, setRemove] = useState('')
   const [loading, setLoading] = useState(false);
 
   const { data: products = [], refetch, isLoading } = useQuery({
-    queryKey: ['products'],
+    queryKey: ['products', user?.uid],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/products`)
+      const res = await fetch(`http://localhost:5000/my-products?uid=${user.uid}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('access-token')}`
+        }
+      })
       const data = await res.json()
       return data
     }
@@ -128,10 +134,10 @@ const MyProducts = () => {
                   <td>{product?.brand}</td>
                   <td>${product?.sellPrice}</td>
                   <td>
-                    {product?.sellStatus === 'sold' ?
-                      <button className="btn btn-sm rounded text-white" disabled>Sold</button>
-                      :
+                    {product?.sellStatus === true ?
                       <label className="btn btn-xs rounded text-white">Available</label>
+                      :
+                      <button className="btn btn-sm rounded text-white" disabled>Sold</button>
                     }
                   </td>
                   <td>
@@ -154,6 +160,9 @@ const MyProducts = () => {
         </table>
         {
           loading && <LoadingSpinner></LoadingSpinner>
+        }
+        {
+          isLoading && <LoadingSpinner></LoadingSpinner>
         }
       </div >
 

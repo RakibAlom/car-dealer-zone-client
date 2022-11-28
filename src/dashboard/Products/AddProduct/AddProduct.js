@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns'
 import { useQuery } from '@tanstack/react-query';
@@ -10,8 +10,9 @@ const AddProduct = () => {
   const { user } = useContext(AuthContext);
   const imageHostKey = process.env.REACT_APP_imgbb_key;
   const navigate = useNavigate()
-  const date = format(new Date(), 'PP')
+  const date = format(new Date(), 'P')
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [disabled, setDisabled] = useState(false);
 
   // Get Category
   const { data: categories = [] } = useQuery({
@@ -35,7 +36,7 @@ const AddProduct = () => {
 
   // Add Product
   const handleAddProduct = data => {
-    console.log(data)
+    setDisabled(true)
     const image = data.productThumbnail[0];
     const formData = new FormData();
     formData.append('image', image);
@@ -63,10 +64,14 @@ const AddProduct = () => {
             transmission: data.transmission,
             description: data.description,
             adsStatus: data.adsStatus,
+            conditionType: data.conditionType,
+            mobileNumber: data.mobileNumber,
+            location: data.location,
             productThumbnail: imgData.data.url,
             addDate: date,
             sellerId: user.uid,
             sellerName: user.displayName,
+            sellStatus: true,
           }
 
           // save doctor information to the database
@@ -83,6 +88,7 @@ const AddProduct = () => {
               if (result.acknowledged) {
                 toast.success(`${data.name} is added successfully`);
                 navigate('/dashboard/products')
+                setDisabled(false)
               }
             })
         }
@@ -159,6 +165,34 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
+                    <label htmlFor="conditionType" className="block text-sm font-medium text-gray-700">Condition Type</label>
+                    <select id="conditionType" {...register("conditionType", {
+                      required: "Condition Type required"
+                    })} className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm" required>
+                      <option defaultValue="good">Good</option>
+                      <option defaultValue="excellent">Excellent</option>
+                      <option defaultValue="fair">Fair</option>
+                    </select>
+                    {errors.conditionType && <p className='text-red-500'>{errors.conditionType.message}</p>}
+                  </div>
+
+                  <div className="col-span-12 md:col-span-6">
+                    <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+                    <input type="text" {...register("mobileNumber", {
+                      required: 'Mobile Number is required.'
+                    })} id="mobileNumber" autoComplete="mobileNumber" placeholder='ex: 017000000000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
+                    {errors.mobileNumber && <p className='text-red-500'>{errors.mobileNumber.message}</p>}
+                  </div >
+
+                  <div className="col-span-12 md:col-span-6">
+                    <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                    <input type="text" {...register("location", {
+                      required: 'Location is required.'
+                    })} id="location" autoComplete="location" placeholder='ex: Lamapara, Sylhet' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
+                    {errors.location && <p className='text-red-500'>{errors.location.message}</p>}
+                  </div >
+
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="productThumbnail" className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
                     <input type="file" {...register("productThumbnail", {
                       required: "Product image required"
@@ -166,7 +200,7 @@ const AddProduct = () => {
                     {errors.productThumbnail && <p className='text-red-500'>{errors.productThumbnail.message}</p>}
                   </div >
 
-                  <div className="col-span-6 md:col-span-3">
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="mileage" className="block text-sm font-medium text-gray-700 mb-2">Mileage</label>
                     <input type="text" {...register("mileage", {
                       required: 'Mileage is required.'
@@ -174,7 +208,7 @@ const AddProduct = () => {
                     {errors.mileage && <p className='text-red-500'>{errors.mileage.message}</p>}
                   </div >
 
-                  <div className="col-span-6 md:col-span-3">
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="fuelType" className="block text-sm font-medium text-gray-700 mb-2">Fuel Type</label>
                     <input type="text" {...register("fuelType", {
                       required: 'Fule type is required'
@@ -182,17 +216,17 @@ const AddProduct = () => {
                     {errors.fuelType && <p className='text-red-500'>{errors.fuelType.message}</p>}
                   </div >
 
-                  <div className="col-span-6 md:col-span-3">
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="engineCapacity" className="block text-sm font-medium text-gray-700 mb-2">Engine Capacity (Optional)</label>
                     <input type="text" {...register("engineCapacity")} id="engineCapacity" autoComplete="engineCapacity" placeholder='ex: 1500 cc' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
                   </div >
 
-                  <div className="col-span-6 md:col-span-3">
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="seats" className="block text-sm font-medium text-gray-700 mb-2">Seats (Optional)</label>
                     <input type="text" {...register("seats")} id="seats" autoComplete="seats" placeholder='ex: 5' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
                   </div >
 
-                  <div className="col-span-6 md:col-span-3">
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="transmission" className="block text-sm font-medium text-gray-700 mb-2">Transmission</label>
                     <input type="text" {...register("transmission", {
                       required: 'Transmission is required'
@@ -200,11 +234,11 @@ const AddProduct = () => {
                     {errors.transmission && <p className='text-red-500'>{errors.transmission.message}</p>}
                   </div >
 
-                  <div className="col-span-6 md:col-span-3">
+                  <div className="col-span-12 md:col-span-6">
                     <label htmlFor="adsStatus" className="block text-sm font-medium text-gray-700 mb-2">Want to shoaw as a Ads?</label>
                     <select id="adsStatus" {...register("adsStatus")} autoComplete="adsStatus" className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm">
-                      <option defaultValue="no">No</option>
-                      <option defaultValue="yes">Yes</option>
+                      <option defaultValue="no">no</option>
+                      <option defaultValue="yes">yes</option>
                     </select>
                   </div >
 
@@ -219,7 +253,7 @@ const AddProduct = () => {
                 </div >
               </div >
               <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-[#f06425] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#FF731D] focus:outline-none focus:ring-2 focus:ring-[#f06425] focus:ring-offset-2">Publish Product</button>
+                <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-[#f06425] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#FF731D] focus:outline-none focus:ring-2 focus:ring-[#f06425] focus:ring-offset-2" disabled={disabled}>Publish Product</button>
               </div>
             </div >
           </form >

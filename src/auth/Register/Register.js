@@ -82,6 +82,7 @@ const Register = () => {
                       if (result.acknowledged) {
                         toast.success('Welcome to Car Dealer Zone!')
                         navigate('/')
+                        setDisabled(false)
                       }
                     })
                 })

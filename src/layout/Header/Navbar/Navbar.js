@@ -43,6 +43,7 @@ const Navbar = () => {
 
   const menuItems = <>
     <li><NavLink className="rounded btn-sm" to="/">Home</NavLink></li>
+    <li><NavLink className="rounded btn-sm" to="/cars">All Cars</NavLink></li>
     {
       categories.filter(item => item.menuStatus === 'active').map((item, i) =>
         <li key={i}><NavLink className="rounded btn-sm " to={`/category/${item.slug}`}>{item.name}</NavLink></li>
