@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
+import BookNowModal from '../../../dashboard/Products/BookNowModal/BookNowModal';
 
 const ProductCard = ({ product }) => {
   const [productSeller, setProductSeller] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [booking, setBooking] = useState('')
 
   const { name, sellPrice, category, brand, mileage, fuelType, addDate, transmission, productThumbnail, sellerName, sellerId } = product;
 
   useEffect(() => {
-    setLoading(true)
     fetch(`http://localhost:5000/user/${sellerId}`)
       .then(res => res.json())
       .then(data => {
         setProductSeller(data)
-        setLoading(false)
       })
   }, [sellerId])
   return (
     <>
       <div className="col-span-12 md:col-span-6 lg:col-span-3">
+
         <div className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <img className="object-cover object-center w-full h-56" src={productThumbnail} alt={name} />
 
@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
               <span>{category}</span>
             </div>
             <h1 className="text-xl font-bold text-[#f06425] dark:text-white">{name}</h1>
-            <p className='text-dark font-bold'>${sellPrice}</p>
+            <p className='text-dark font-bold'>${sellPrice} {product?.originalPrice && <span className='font-light line-through text-[#f06425]'>${product?.originalPrice}</span>}</p>
             <span className='text-gray-500 text-sm font-bold flex gap-1'>
               By {sellerName}
               {productSeller.verified && <FaCheckCircle className='text-[#f06425]'></FaCheckCircle>}
@@ -53,9 +53,21 @@ const ProductCard = ({ product }) => {
               </div>
             </div>
           </div>
-          <button className="btn bg-[#f06425] btn-block border-0 hover:bg-[#FF731D]">Buy Now</button>
+          <label htmlFor={`confrimBooking${product._id}`} onClick={() => setBooking(product)} className="btn bg-[#f06425] btn-block border-0 hover:bg-[#FF731D]">Book Now</label>
+
         </div>
+
+        {
+          booking && <BookNowModal
+            htmlFor={`confrimBooking${product._id}`}
+            successButtonName="Book Know"
+            modalData={booking}
+          >
+          </BookNowModal>
+        }
+
       </div>
+
     </>
   );
 };

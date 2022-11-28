@@ -235,7 +235,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="adsStatus" className="block text-sm font-medium text-gray-700 mb-2">Want to shoaw as a Ads?</label>
+                    <label htmlFor="adsStatus" className="block text-sm font-medium text-gray-700 mb-2">Want Product Ads?</label>
                     <select id="adsStatus" {...register("adsStatus")} autoComplete="adsStatus" className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm">
                       <option defaultValue="no">no</option>
                       <option defaultValue="yes">yes</option>

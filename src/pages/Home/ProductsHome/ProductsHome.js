@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../../dashboard/utilities/LoadingSpinner/LoadingSpinner';
 import ProductCard from '../../Products/ProductCard/ProductCard';
 const ProductsHome = () => {
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ['products'],
+  const { data: homeProducts = [], isLoading } = useQuery({
+    queryKey: ['homeProducts'],
     queryFn: async () => {
       const res = await fetch('http://localhost:5000/products')
       const data = await res.json();
@@ -26,7 +26,7 @@ const ProductsHome = () => {
           <div className='py-5'>
             <div className="grid grid-cols-12 gap-4">
               {
-                products?.slice(0, 4)?.map(product =>
+                homeProducts?.slice(0, 4)?.map(product =>
                   <ProductCard product={product} key={product._id}></ProductCard>
                 )
               }

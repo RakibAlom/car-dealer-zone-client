@@ -103,7 +103,7 @@ const Users = () => {
                     }
                   </td>
                   <th>
-                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)} disabled={user?.userType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
+                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)}><FaTrashAlt></FaTrashAlt></label>
                   </th>
                 </tr>
               )

@@ -148,12 +148,11 @@ const MyProducts = () => {
                           :
                           <label htmlFor="ConfirmAds" onClick={() => setAds(product)} className="btn btn-sm btn-primary rounded text-white">Get Ads</label>
                         : null
-
                     }
 
                   </td>
                   <th>
-                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteProduct(product)} disabled={product?.productType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
+                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteProduct(product)}><FaTrashAlt></FaTrashAlt></label>
                   </th>
                 </tr>
               )

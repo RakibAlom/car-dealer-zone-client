@@ -17,7 +17,6 @@ const AuthProvider = ({ children }) => {
 
   const createUserRegister = (email, password) => {
     setLoading(true)
-    console.log(email, password)
     return createUserWithEmailAndPassword(auth, email, password)
   }
 
@@ -37,6 +36,7 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    setLoading(true)
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
       setLoading(false)

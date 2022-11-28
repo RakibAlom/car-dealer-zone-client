@@ -7,7 +7,7 @@ import LoadingSpinner from '../../utilities/LoadingSpinner/LoadingSpinner';
 
 const Buyers = () => {
   const [deleteUser, setDeleteUser] = useState(null)
-  const [makeAdmin, setMakeAdmin] = useState(null)
+  const [verify, setVerify] = useState(null)
 
   const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ['users'],
@@ -19,8 +19,8 @@ const Buyers = () => {
     }
   })
 
-  const handleMakeAdmin = (user) => {
-    fetch(`http://localhost:5000/user/make-admin/${user._id}`, {
+  const handleVerify = (user) => {
+    fetch(`http://localhost:5000/user/verify-user/${user._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -97,14 +97,14 @@ const Buyers = () => {
                     {user?.email}
                   </td>
                   <td>
-                    {user?.userType === 'admin' ?
-                      <button className="btn btn-sm rounded text-white" disabled>Admin</button>
+                    {user?.verified === true ?
+                      <button className="btn btn-sm rounded text-white" disabled>verified</button>
                       :
-                      <label htmlFor="confirmMakeAdmin" onClick={() => setMakeAdmin(user)} className="btn btn-sm btn-primary rounded text-white">Make Admin</label>
+                      <label htmlFor="verifyModal" onClick={() => setVerify(user)} className="btn btn-sm btn-primary rounded text-white">Verify User</label>
                     }
                   </td>
                   <th>
-                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)} disabled={user?.userType === 'admin' ? true : false}><FaTrashAlt></FaTrashAlt></label>
+                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)}><FaTrashAlt></FaTrashAlt></label>
                   </th>
                 </tr>
               )
@@ -117,13 +117,13 @@ const Buyers = () => {
       </div >
 
       {
-        makeAdmin && <ConfrimAlert
-          htmlFor="confirmMakeAdmin"
-          title={`Are you want to make a admin?`}
+        verify && <ConfrimAlert
+          htmlFor="verifyModal"
+          title={`Are you want to verify the buyer?`}
           message={`If you make it, you can't access him.`}
-          successAction={handleMakeAdmin}
+          successAction={handleVerify}
           successButtonName="Confirm"
-          modalData={makeAdmin}
+          modalData={verify}
         >
         </ConfrimAlert>
       }

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../auth/Login/Login";
 import Register from "../auth/Register/Register";
+import Booking from "../dashboard/Booking/Booking";
 import Dashboard from "../dashboard/Dashboard/Dashboard";
 import DashboardMain from "../dashboard/DashboardLayout/DashboardMain/DashboardMain";
 import AddProduct from "../dashboard/Products/AddProduct/AddProduct";
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
         element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
       },
       {
+        path: '/dashboard/bookings',
+        element: <PrivateRoutes><Booking></Booking></PrivateRoutes>
+      },
+      {
         path: '/dashboard/products',
         element: <PrivateRoutes><MyProducts></MyProducts></PrivateRoutes>
       },
@@ -103,6 +108,11 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/users',
         element: <AdminRoutes><Users></Users></AdminRoutes>
+      },
+      {
+        path: '/dashboard/payment/:id',
+        element: <Payment></Payment>,
+        loader: ({ params }) => fetch(`https://doctors-portal-server-rust.vercel.app/bookings/${params.id}`)
       }
     ]
   }
