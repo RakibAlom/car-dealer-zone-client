@@ -1,9 +1,11 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+import LoadingSpinner from '../../../../dashboard/utilities/LoadingSpinner/LoadingSpinner';
 import ProductCard from '../../ProductCard/ProductCard';
 
 const CategoryProducts = ({ params }) => {
   const products = useLoaderData();
+  const { state } = useNavigation();
   return (
     <div className="">
       <div className='container md:mx-auto'>
@@ -11,7 +13,11 @@ const CategoryProducts = ({ params }) => {
           <div className='flex justify-between w-full'>
             <h2 className='text-2xl font-bold'>Total Result Found: <span className='text-[#f06425]'>{products.length}</span></h2>
           </div>
+          {
+            state === 'loading' && <LoadingSpinner></LoadingSpinner>
+          }
           <div className='py-5'>
+
             {
               products.length < 1 && <h2 className='text-center text-3xl text-[#f06425] py-36 font-bold'>No Data Found</h2>
             }

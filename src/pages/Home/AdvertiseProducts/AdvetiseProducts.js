@@ -10,7 +10,6 @@ const AdvetiseProducts = () => {
       const data = await res.json()
       return data
     }
-
   })
   return (
     <div className="">

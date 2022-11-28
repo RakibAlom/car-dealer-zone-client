@@ -3,7 +3,7 @@ import React from 'react';
 import LoadingSpinner from '../../dashboard/utilities/LoadingSpinner/LoadingSpinner';
 import ProductCard from './ProductCard/ProductCard';
 
-const Products = ({ category }) => {
+const Products = () => {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
@@ -17,7 +17,7 @@ const Products = ({ category }) => {
       <div className='container md:mx-auto'>
         <div className="advertise-section py-10">
           <div className='flex justify-between w-full'>
-            <h2 className='text-2xl font-bold'><span className='text-[#f06425]'>{category}</span>Cars</h2>
+            <h2 className='text-2xl font-bold'>All <span className='text-[#f06425]'>Cars</span> ({products.length})</h2>
           </div>
 
           {isLoading && <LoadingSpinner></LoadingSpinner>}

@@ -7,7 +7,6 @@ import LoadingSpinner from '../../../dashboard/utilities/LoadingSpinner/LoadingS
 const ProductsCategoryHome = () => {
 
   const url = `http://localhost:5000/categories`
-
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {

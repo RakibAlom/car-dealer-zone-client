@@ -142,11 +142,13 @@ const MyProducts = () => {
                   </td>
                   <td>
                     {
-                      product?.sellStatus === 'sold' ? null :
+                      product?.sellStatus ?
                         product?.adsStatus === 'yes' ?
                           <label htmlFor="ConfirmRemoveAds" onClick={() => setRemove(product)} className="btn btn-sm btn-warning rounded text-white">Remove Ads</label>
                           :
                           <label htmlFor="ConfirmAds" onClick={() => setAds(product)} className="btn btn-sm btn-primary rounded text-white">Get Ads</label>
+                        : null
+
                     }
 
                   </td>

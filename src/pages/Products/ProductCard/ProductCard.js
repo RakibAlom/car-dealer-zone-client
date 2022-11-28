@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
   const [productSeller, setProductSeller] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { name, sellPrice, category, brand, mileage, fuelType, date, transmission, productThumbnail, sellerName, sellerId } = product;
+  const { name, sellPrice, category, brand, mileage, fuelType, addDate, transmission, productThumbnail, sellerName, sellerId } = product;
 
   useEffect(() => {
     setLoading(true)
@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
         setProductSeller(data)
         setLoading(false)
       })
-  }, [])
+  }, [sellerId])
   return (
     <>
       <div className="col-span-12 md:col-span-6 lg:col-span-3">
@@ -45,7 +45,7 @@ const ProductCard = ({ product }) => {
               </div>
               <div className="flex flex-col items-center mt-4 text-gray-400 dark:text-gray-200">
                 <svg style={{ width: '1.2em', height: '1.2em' }} focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CalendarMonthIcon"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"></path></svg>
-                <span className='text-xs'>{date}</span>
+                <span className='text-xs'>{addDate}</span>
               </div>
               <div className="flex flex-col items-center mt-4 text-gray-400 dark:text-gray-200">
                 <svg style={{ width: '1.2em', height: '1.2em' }} focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MotionPhotosAutoIcon"><path d="m2.88 7.88 1.54 1.54C4.15 10.23 4 11.1 4 12c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8c-.9 0-1.77.15-2.58.42L7.89 2.89C9.15 2.32 10.54 2 12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12c0-1.47.32-2.86.88-4.12zM7 5.5C7 6.33 6.33 7 5.5 7S4 6.33 4 5.5 4.67 4 5.5 4 7 4.67 7 5.5zm5.03 3.49h-.07L10.8 12.3h2.39l-1.16-3.31zM12 18c3.31 0 6-2.69 6-6s-2.69-6-6-6-6 2.69-6 6 2.69 6 6 6zm-.71-10.5h1.43l3.01 8h-1.39l-.72-2.04h-3.23l-.73 2.04H8.28l3.01-8z"></path></svg>
