@@ -25,7 +25,7 @@ const Login = () => {
           uid: user.uid
         }
         //// GET JWT TOKEN
-        fetch('https://car-dealer-zone-server.vercel.app/jwt', {
+        fetch('http://localhost:5000/jwt', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

@@ -5,7 +5,7 @@ import ProductsBrandCard from '../../Products/ProductsBrand/ProductsBrandCard/Pr
 import LoadingSpinner from '../../../dashboard/utilities/LoadingSpinner/LoadingSpinner';
 const ProductsBrandHome = () => {
 
-  const url = `https://car-dealer-zone-server.vercel.app/brands`
+  const url = `http://localhost:5000/brands`
 
   const { data: brands = [], isLoading } = useQuery({
     queryKey: ['brands'],

@@ -13,14 +13,14 @@ const Buyers = () => {
     queryKey: ['users'],
     queryFn: async () => {
       const userType = 'buyer'
-      const res = await fetch(`https://car-dealer-zone-server.vercel.app/users?userType=${userType}`)
+      const res = await fetch(`http://localhost:5000/users?userType=${userType}`)
       const data = await res.json()
       return data
     }
   })
 
   const handleVerify = (user) => {
-    fetch(`https://car-dealer-zone-server.vercel.app/user/verify-user/${user._id}`, {
+    fetch(`http://localhost:5000/user/verify-user/${user._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -41,7 +41,7 @@ const Buyers = () => {
 
 
   const handleUserDelete = (user) => {
-    fetch(`https://car-dealer-zone-server.vercel.app/user/${user._id}`, {
+    fetch(`http://localhost:5000/user/${user._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`

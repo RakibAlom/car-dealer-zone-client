@@ -42,7 +42,7 @@ const Register = () => {
               }
 
               // GET JWT TOKEN
-              fetch('https://car-dealer-zone-server.vercel.app/jwt', {
+              fetch('http://localhost:5000/jwt', {
                 method: 'POST',
                 headers: {
                   'content-type': 'application/json'
@@ -68,7 +68,7 @@ const Register = () => {
                     uid: user.uid,
                     verified: false
                   }
-                  fetch('https://car-dealer-zone-server.vercel.app/user', {
+                  fetch('http://localhost:5000/user', {
                     method: 'POST',
                     headers: {
                       'content-type': 'application/json',

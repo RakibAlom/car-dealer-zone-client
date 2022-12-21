@@ -18,7 +18,7 @@ const PaymentCheckOut = ({ booking, closingModal, refetch }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://car-dealer-zone-server.vercel.app/create-payment-intent", {
+    fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const PaymentCheckOut = ({ booking, closingModal, refetch }) => {
       const payment = {
         productId, productName, priceAmount, ProdcutBrand, UserId, bookingId: booking._id, bookingDate, buyerPhone, name, email, paymentDate
       }
-      fetch('https://car-dealer-zone-server.vercel.app/payments', {
+      fetch('http://localhost:5000/payments', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',

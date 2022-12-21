@@ -18,7 +18,7 @@ const AddProduct = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const res = await fetch('https://car-dealer-zone-server.vercel.app/categories');
+      const res = await fetch('http://localhost:5000/categories');
       const data = await res.json();
       return data;
     }
@@ -28,7 +28,7 @@ const AddProduct = () => {
   const { data: brands = [] } = useQuery({
     queryKey: ['brands'],
     queryFn: async () => {
-      const res = await fetch('https://car-dealer-zone-server.vercel.app/brands');
+      const res = await fetch('http://localhost:5000/brands');
       const data = await res.json();
       return data;
     }
@@ -76,7 +76,7 @@ const AddProduct = () => {
           }
 
           // save doctor information to the database
-          fetch('https://car-dealer-zone-server.vercel.app/product', {
+          fetch('http://localhost:5000/product', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',

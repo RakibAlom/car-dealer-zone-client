@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
   const { name, sellPrice, category, brand, mileage, fuelType, addDate, transmission, productThumbnail, sellerName, sellerId } = product;
 
   useEffect(() => {
-    fetch(`https://car-dealer-zone-server.vercel.app/user/${sellerId}`)
+    fetch(`http://localhost:5000/user/${sellerId}`)
       .then(res => res.json())
       .then(result => {
         setProductSeller(result)
@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
   }, [sellerId])
 
   const handleReport = (product) => {
-    fetch(`https://car-dealer-zone-server.vercel.app/product/report-product/${product._id}`, {
+    fetch(`http://localhost:5000/product/report-product/${product._id}`, {
       method: "PUT"
     })
       .then(res => res.json())

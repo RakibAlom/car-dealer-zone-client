@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/category/:slug',
-        loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/category/${params.slug}`),
+        loader: ({ params }) => fetch(`http://localhost:5000/category/${params.slug}`),
         element: <PrivateRoutes><CategoryProducts></CategoryProducts></PrivateRoutes>
       },
       {
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/brand/:slug',
-        loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/brand/${params.slug}`),
+        loader: ({ params }) => fetch(`http://localhost:5000/brand/${params.slug}`),
         element: <PrivateRoutes><BrandProducts></BrandProducts></PrivateRoutes>
       },
       {

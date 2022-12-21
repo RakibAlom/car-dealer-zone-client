@@ -16,7 +16,7 @@ const MyProducts = () => {
   const { data: products = [], refetch, isLoading } = useQuery({
     queryKey: ['products', user?.uid],
     queryFn: async () => {
-      const res = await fetch(`https://car-dealer-zone-server.vercel.app/my-products?uid=${user.uid}`, {
+      const res = await fetch(`http://localhost:5000/my-products?uid=${user.uid}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem('access-token')}`
         }
@@ -29,7 +29,7 @@ const MyProducts = () => {
 
   const handleAds = (product) => {
     setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/get-ads/${product._id}`, {
+    fetch(`http://localhost:5000/product/get-ads/${product._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -51,7 +51,7 @@ const MyProducts = () => {
 
   const handleRemoveAds = (product) => {
     setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/remove-ads/${removeAds._id}`, {
+    fetch(`http://localhost:5000/product/remove-ads/${removeAds._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -74,7 +74,7 @@ const MyProducts = () => {
 
   const handleproductDelete = (product) => {
     setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/${product._id}`, {
+    fetch(`http://localhost:5000/product/${product._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`

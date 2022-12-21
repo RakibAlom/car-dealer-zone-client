@@ -6,7 +6,7 @@ Car Delar Zone : Buy & Sell New cars, Used cars, Reconditioned cars in Planet.
 
 **Website Link:** https://car-dealer-zone.web.app/
 
-**Server Link:** https://car-dealer-zone-server.vercel.app/
+**Server Link:** http://localhost:5000/
 
 ## Admin Information
 

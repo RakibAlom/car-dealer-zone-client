@@ -12,7 +12,7 @@ const Navbar = () => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    fetch(`https://car-dealer-zone-server.vercel.app/categories`)
+    fetch(`http://localhost:5000/categories`)
       .then(res => res.json())
       .then(data => {
         setCategories(data)
@@ -21,7 +21,7 @@ const Navbar = () => {
   }, [])
 
   useEffect(() => {
-    fetch(`https://car-dealer-zone-server.vercel.app/brands`)
+    fetch(`http://localhost:5000/brands`)
       .then(res => res.json())
       .then(data => {
         setBrands(data)

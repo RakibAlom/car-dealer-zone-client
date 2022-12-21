@@ -15,7 +15,7 @@ const ReportedProducts = () => {
   const { data: products = [], refetch, isLoading } = useQuery({
     queryKey: ['products', user?.uid],
     queryFn: async () => {
-      const res = await fetch(`https://car-dealer-zone-server.vercel.app/reported-products`, {
+      const res = await fetch(`http://localhost:5000/reported-products`, {
         headers: {
           authorization: `bearer ${localStorage.getItem('access-token')}`
         }
@@ -28,7 +28,7 @@ const ReportedProducts = () => {
 
   const handleRemoveReport = (product) => {
     setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/remove-report/${product._id}`, {
+    fetch(`http://localhost:5000/product/remove-report/${product._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -51,7 +51,7 @@ const ReportedProducts = () => {
 
   const handleproductDelete = (product) => {
     setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/${product._id}`, {
+    fetch(`http://localhost:5000/product/${product._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
