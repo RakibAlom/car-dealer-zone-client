@@ -72,6 +72,7 @@ const AddProduct = () => {
             sellerId: user.uid,
             sellerName: user.displayName,
             sellStatus: true,
+            reportStatus: false,
           }
 
           // save doctor information to the database
@@ -160,8 +161,8 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="originalPrice" {...register("originalPrice")} className="block text-sm font-medium text-gray-700 mb-2">Original Price (Optional)</label>
-                    <input type="text" name="originalPrice" id="originalPrice" autoComplete="originalPrice" placeholder='ex: 24000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
+                    <label htmlFor="originalPrice" className="block text-sm font-medium text-gray-700 mb-2">Original Price (Optional)</label>
+                    <input type="text" {...register("originalPrice")} id="originalPrice" autoComplete="originalPrice" placeholder='ex: 24000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
                   </div>
 
                   <div className="col-span-12 md:col-span-6">

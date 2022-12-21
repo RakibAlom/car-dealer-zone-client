@@ -1,20 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { FaCheckCircle } from 'react-icons/fa';
+import toast from 'react-hot-toast';
+import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import BookNowModal from '../../../dashboard/Products/BookNowModal/BookNowModal';
+import ConfrimAlert from '../../../dashboard/utilities/ConfirmAlert/ConfrimAlert';
 
 const ProductCard = ({ product }) => {
-  const [productSeller, setProductSeller] = useState(false);
+  const [productSeller, setProductSeller] = useState({});
   const [booking, setBooking] = useState('')
+  const [report, setReport] = useState('')
 
   const { name, sellPrice, category, brand, mileage, fuelType, addDate, transmission, productThumbnail, sellerName, sellerId } = product;
 
   useEffect(() => {
     fetch(`https://car-dealer-zone-server.vercel.app/user/${sellerId}`)
       .then(res => res.json())
-      .then(data => {
-        setProductSeller(data)
+      .then(result => {
+        setProductSeller(result)
       })
+      .catch(err => console.error(err))
   }, [sellerId])
+
+  const handleReport = (product) => {
+    fetch(`https://car-dealer-zone-server.vercel.app/product/report-product/${product._id}`, {
+      method: "PUT"
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.modifiedCount > 0) {
+          toast.success(`${product.name} Reported`)
+        }
+      })
+      .catch(err => {
+        console.error(err.message)
+        toast.error('Something happened wrong!')
+      })
+  }
+
   return (
     <>
       <div className="col-span-12 md:col-span-6 lg:col-span-3">
@@ -23,16 +44,20 @@ const ProductCard = ({ product }) => {
           <img className="object-cover object-center w-full h-56" src={productThumbnail} alt={name} />
 
           <div className="px-4 py-4">
-            <div className='flex justify-between text-gray-400 text-sm font-semibold'>
-              <span className='text-gray-500 text-sm'>{brand}</span>
-              <span>{category}</span>
+            <div className='flex justify-between text-sm font-semibold'>
+              <span className='text-sm'>{brand}</span>
+              <span className=' text-gray-600'>{category}</span>
             </div>
             <h1 className="text-xl font-bold text-[#f06425] dark:text-white">{name}</h1>
             <p className='text-dark font-bold'>${sellPrice} {product?.originalPrice && <span className='font-light line-through text-[#f06425]'>${product?.originalPrice}</span>}</p>
-            <span className='text-gray-500 text-sm font-bold flex gap-1'>
-              By {sellerName}
-              {productSeller.verified && <FaCheckCircle className='text-[#f06425]'></FaCheckCircle>}
-            </span>
+
+            <div className='flex justify-between text-gray-400 text-sm font-semibold'>
+              <span className='text-gray-700 text-sm font-bold flex gap-1'>
+                By {sellerName}
+                {productSeller.verified && <FaCheckCircle className='text-[#f06425]'></FaCheckCircle>}
+              </span>
+              <label htmlFor={`ConfirmReport${product._id}`} onClick={() => setReport(product)} className='badge gap-1 text-white cursor-pointer'><FaExclamationTriangle></FaExclamationTriangle> Report</label>
+            </div>
 
             <div className="flex items-center justify-between mx-5">
               <div className="flex flex-col items-center mt-4 text-gray-400 dark:text-gray-200">
@@ -56,7 +81,17 @@ const ProductCard = ({ product }) => {
           <label htmlFor={`confrimBooking${product._id}`} onClick={() => setBooking(product)} className="btn bg-[#f06425] btn-block border-0 hover:bg-[#FF731D]">Book Now</label>
 
         </div>
-
+        {
+          report && <ConfrimAlert
+            htmlFor={`ConfirmReport${product._id}`}
+            title={`Want to report for "${product.name}?"`}
+            message={`If you report, we are report about this product`}
+            successAction={handleReport}
+            successButtonName="Report"
+            modalData={report}
+          >
+          </ConfrimAlert>
+        }
         {
           booking && <BookNowModal
             htmlFor={`confrimBooking${product._id}`}

@@ -63,7 +63,7 @@ const Buyers = () => {
   return (
     <>
       <div className="overflow-x-auto w-full">
-        <h3 className="text-lg font-medium leading-6 text-gray-900 pb-5">All Users</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900 pb-5">All Buyers</h3>
         <table className="table w-full">
           <thead>
             <tr>
@@ -109,6 +109,13 @@ const Buyers = () => {
                 </tr>
               )
             }
+            {users.length <= 0 &&
+              <tr>
+                <td colSpan="6">
+                  <h2 className='text-center font-bold'>No Buyer Found</h2>
+                </td>
+              </tr>
+            }
           </tbody>
         </table>
         {
@@ -120,7 +127,7 @@ const Buyers = () => {
         verify && <ConfrimAlert
           htmlFor="verifyModal"
           title={`Are you want to verify the buyer?`}
-          message={`If you make it, you can't access him.`}
+          message={`If you make it, user will be verified.`}
           successAction={handleVerify}
           successButtonName="Confirm"
           modalData={verify}

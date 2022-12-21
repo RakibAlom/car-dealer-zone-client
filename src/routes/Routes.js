@@ -1,12 +1,13 @@
+import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../auth/Login/Login";
 import Register from "../auth/Register/Register";
 import Booking from "../dashboard/Booking/Booking";
 import Dashboard from "../dashboard/Dashboard/Dashboard";
 import DashboardMain from "../dashboard/DashboardLayout/DashboardMain/DashboardMain";
-import Payment from "../dashboard/Payment/Payment";
 import AddProduct from "../dashboard/Products/AddProduct/AddProduct";
 import MyProducts from "../dashboard/Products/MyProducts/MyProducts";
+import ReportedProducts from '../dashboard/Products/ReportedProducts/ReportedProducts';
 import Buyers from "../dashboard/Users/Buyers/Buyers";
 import Sellers from "../dashboard/Users/Sellers/Sellers";
 import Users from "../dashboard/Users/Users";
@@ -22,6 +23,7 @@ import CategoryProducts from "../pages/Products/ProductsCategory/CategoryProduct
 import ProductsCategory from "../pages/Products/ProductsCategory/ProductsCategory";
 import AdminRoutes from "./AdminRoutes/AdminRoutes";
 import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
+import SellerRoutes from './SellerRoutes/SellerRoutes';
 
 const router = createBrowserRouter([
   {
@@ -47,12 +49,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/brand',
-        element: <PrivateRoutes><ProductsBrand></ProductsBrand></PrivateRoutes>
+        element: <ProductsBrand></ProductsBrand>
       },
       {
         path: '/brand/:slug',
         loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/brand/${params.slug}`),
-        element: <BrandProducts></BrandProducts>
+        element: <PrivateRoutes><BrandProducts></BrandProducts></PrivateRoutes>
       },
       {
         path: '/blog',
@@ -109,11 +111,11 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/users',
         element: <AdminRoutes><Users></Users></AdminRoutes>
-      },
+      }
+      ,
       {
-        path: '/dashboard/payment/:id',
-        element: <PrivateRoutes><Payment></Payment></PrivateRoutes>,
-        loader: ({ params }) => fetch(`https://car-dealer-zone-server.vercel.app/booking/${params.id}`)
+        path: '/dashboard/reported-products',
+        element: <AdminRoutes><ReportedProducts></ReportedProducts></AdminRoutes>
       }
     ]
   }

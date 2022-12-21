@@ -6,17 +6,16 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import ConfrimAlert from '../../utilities/ConfirmAlert/ConfrimAlert';
 import LoadingSpinner from '../../utilities/LoadingSpinner/LoadingSpinner';
 
-const MyProducts = () => {
+const ReportedProducts = () => {
   const { user } = useContext(AuthContext)
   const [deleteProduct, setDeleteProduct] = useState('')
-  const [ads, setAds] = useState('')
-  const [removeAds, setRemove] = useState('')
+  const [removeReport, setRemoveReport] = useState('')
   const [loading, setLoading] = useState(false);
 
   const { data: products = [], refetch, isLoading } = useQuery({
     queryKey: ['products', user?.uid],
     queryFn: async () => {
-      const res = await fetch(`https://car-dealer-zone-server.vercel.app/my-products?uid=${user.uid}`, {
+      const res = await fetch(`https://car-dealer-zone-server.vercel.app/reported-products`, {
         headers: {
           authorization: `bearer ${localStorage.getItem('access-token')}`
         }
@@ -27,9 +26,9 @@ const MyProducts = () => {
 
   })
 
-  const handleAds = (product) => {
+  const handleRemoveReport = (product) => {
     setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/get-ads/${product._id}`, {
+    fetch(`https://car-dealer-zone-server.vercel.app/product/remove-report/${product._id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -38,29 +37,7 @@ const MyProducts = () => {
       .then(res => res.json())
       .then(data => {
         if (data.modifiedCount > 0) {
-          toast.success(`${product.name} ads published`)
-          setLoading(false)
-          refetch();
-        }
-      })
-      .catch(err => {
-        console.error(err.message)
-        toast.error('Something happened wrong!')
-      })
-  }
-
-  const handleRemoveAds = (product) => {
-    setLoading(true)
-    fetch(`https://car-dealer-zone-server.vercel.app/product/remove-ads/${removeAds._id}`, {
-      method: "PUT",
-      headers: {
-        authorization: `bearer ${localStorage.getItem('access-token')}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.modifiedCount > 0) {
-          toast.success(`${product.name} ads removed`)
+          toast.success(`${product.name} report cleared`)
           setLoading(false)
           refetch();
         }
@@ -97,7 +74,7 @@ const MyProducts = () => {
     <>
 
       <div className="overflow-x-auto w-full">
-        <h3 className="text-lg font-medium leading-6 text-gray-900 pb-5">My Products</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900 pb-5">Reproted Products</h3>
         {
           loading && <LoadingSpinner></LoadingSpinner>
         }
@@ -109,8 +86,6 @@ const MyProducts = () => {
             <tr>
               <th>SL</th>
               <th>Name</th>
-              <th>Category</th>
-              <th>Brand</th>
               <th>Price</th>
               <th>Status</th>
               <th>Ads</th>
@@ -136,30 +111,20 @@ const MyProducts = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{product?.category}</td>
-                  <td>{product?.brand}</td>
                   <td>${product?.sellPrice}</td>
                   <td>
-                    {product?.sellStatus === true ?
-                      <label className="btn btn-xs rounded text-white">Available</label>
+                    {product?.reportStatus === true ?
+                      <button className="btn btn-xs rounded text-white" disabled>reported</button>
                       :
-                      <button className="btn btn-sm rounded text-white" disabled>Sold</button>
+                      null
                     }
                   </td>
                   <td>
-                    {
-                      product?.sellStatus ?
-                        product?.adsStatus === 'yes' ?
-                          <label htmlFor="ConfirmRemoveAds" onClick={() => setRemove(product)} className="btn btn-sm btn-warning rounded text-white">Remove Ads</label>
-                          :
-                          <label htmlFor="ConfirmAds" onClick={() => setAds(product)} className="btn btn-sm btn-primary rounded text-white">Get Ads</label>
-                        : null
-                    }
-
+                    <label htmlFor="ConfirmRemoveReport" className="btn btn-sm rounded text-white cursor-pointer" onClick={() => setRemoveReport(product)}>Clear Report</label>
                   </td>
-                  <th>
-                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteProduct(product)}><FaTrashAlt></FaTrashAlt></label>
-                  </th>
+                  <td>
+                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteProduct(product)}><FaTrashAlt></FaTrashAlt> <span className='pl-1'>Delete Product</span></label>
+                  </td>
                 </tr>
               )
             }
@@ -176,25 +141,13 @@ const MyProducts = () => {
       </div >
 
       {
-        ads && <ConfrimAlert
-          htmlFor="ConfirmAds"
-          title={`Make sure, you want to publish Ads?`}
-          message={`If you make it, you will be see the product ads on store`}
-          successAction={handleAds}
-          successButtonName="Confirm"
-          modalData={ads}
-        >
-        </ConfrimAlert>
-      }
-
-      {
-        removeAds && <ConfrimAlert
-          htmlFor="ConfirmRemoveAds"
-          title={`Make sure, you want to removed Ads?`}
-          message={`If you make it, you can't see the product ads on store`}
-          successAction={handleRemoveAds}
-          successButtonName="Confirm"
-          modalData={ads}
+        removeReport && <ConfrimAlert
+          htmlFor="ConfirmRemoveReport"
+          title={`Make sure, you want to clear Report?`}
+          message={`If you make it, product will be fresh`}
+          successAction={handleRemoveReport}
+          successButtonName="Clear"
+          modalData={removeReport}
         >
         </ConfrimAlert>
       }
@@ -216,4 +169,4 @@ const MyProducts = () => {
   );
 };
 
-export default MyProducts;
+export default ReportedProducts;

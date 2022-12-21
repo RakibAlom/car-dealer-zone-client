@@ -41,7 +41,7 @@ const Register = () => {
                 uid: user.uid
               }
 
-              // get jwt token
+              // GET JWT TOKEN
               fetch('https://car-dealer-zone-server.vercel.app/jwt', {
                 method: 'POST',
                 headers: {

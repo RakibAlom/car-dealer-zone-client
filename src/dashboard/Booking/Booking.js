@@ -1,17 +1,23 @@
+import { Elements } from '@stripe/react-stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaRegTimesCircle } from 'react-icons/fa';
 
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import ConfrimAlert from '../utilities/ConfirmAlert/ConfrimAlert';
 import LoadingSpinner from '../utilities/LoadingSpinner/LoadingSpinner';
 import BookingData from './BookingData/BookingData';
+import PaymentCheckOut from './PaymentCheckOut/PaymentCheckOut';
+
+import { loadStripe } from '@stripe/stripe-js';
+const stipePromise = loadStripe(process.env.REACT_APP_STRIPE_PK)
 
 const Booking = () => {
   const { user } = useContext(AuthContext)
   const [deleteBooking, setDeleteBooking] = useState('')
+  const [singleBooking, setSingleBooking] = useState({})
   const [loading, setLoading] = useState(false);
-
   const { data: bookings = [], refetch, isLoading } = useQuery({
     queryKey: ['bookings', user?.uid],
     queryFn: async () => {
@@ -24,6 +30,16 @@ const Booking = () => {
       return data
     }
   })
+
+  const closingModal = () => {
+    setSingleBooking({})
+    refetch();
+  }
+
+  const bookingsPayment = booking => {
+    console.log(booking);
+    setSingleBooking(booking)
+  }
 
   const handleBookingDelete = (booking) => {
     setLoading(true)
@@ -45,6 +61,10 @@ const Booking = () => {
         console.error(err.message)
         toast.error('Something happened wrong!')
       })
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
   }
 
   return (
@@ -69,19 +89,47 @@ const Booking = () => {
 
             {
               bookings?.map((booking, count) =>
-                <BookingData booking={booking} setDeleteBooking={setDeleteBooking} key={count} count={count}></BookingData>
+                <BookingData booking={booking} setDeleteBooking={setDeleteBooking} refetch={refetch} bookingsPayment={bookingsPayment} key={count} count={count}></BookingData>
               )
+            }
+            {bookings.length <= 0 &&
+              <tr>
+                <td colSpan="9">
+                  <h2 className='text-center font-bold'>No Product Found</h2>
+                </td>
+              </tr>
             }
           </tbody>
         </table>
 
-        {
-          loading && <LoadingSpinner></LoadingSpinner>
-        }
-        {
-          isLoading && <LoadingSpinner></LoadingSpinner>
-        }
       </div >
+
+      {/* Payment Modal */}
+      {
+        singleBooking?.priceAmount &&
+        <>
+          <input type="checkbox" id="paymentModal" className="modal-toggle" />
+          <div className="modal">
+            <div className="modal-box relative">
+              <label htmlFor="paymentModal" className='absolute top-3 right-3 text-xl text-red-600 cursor-pointer'><FaRegTimesCircle /></label>
+              <h3 className="font-bold text-xl text-center pt-1">Give Payment to purchase product</h3>
+              <h5 className="text-2xl text-[#f06425] font-semibold pt-3 text-center">Product Name: {singleBooking.productName}</h5>
+              <h5 className="font-bold text-[#f06425] pt-2 pb-8 text-center">Amount: ${singleBooking.priceAmount}</h5>
+              <Elements stripe={stipePromise}>
+                <PaymentCheckOut
+                  booking={singleBooking}
+                  closingModal={closingModal}
+                  refetch={refetch}
+                ></PaymentCheckOut>
+              </Elements>
+            </div>
+          </div>
+        </>
+      }
+
+
+      {/* Confirm Delete Modal */}
+
       {
         deleteBooking && <ConfrimAlert
           htmlFor="confirmAlert"

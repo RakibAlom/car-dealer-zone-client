@@ -29,9 +29,36 @@ const SocialLogin = () => {
           .then(res => res.json())
           .then(data => {
             localStorage.setItem('access-token', data.token);
-            navigate(from, { replace: true });
-            toast.success('Welcome, you connected with Google!');
           });
+
+        const userData = {
+          userType: 'buyer',
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+          uid: user.uid,
+          verified: false
+        }
+        fetch('https://car-dealer-zone-server.vercel.app/user', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            authorization: `bearer ${localStorage.getItem('access-token')}`
+          },
+          body: JSON.stringify(userData)
+        })
+          .then(res => res.json())
+          .then(result => {
+            if (result.acknowledged) {
+              toast.success('Welcome to Car Dealer Zone!')
+              toast.success('Welcome, you connected with Google!');
+              navigate(from, { replace: true });
+            } else {
+              toast.success('Welcome to Car Dealer Zone!')
+              toast.success('Welcome, you connected with Google!');
+              navigate(from, { replace: true });
+            }
+          })
 
       }).catch(error => {
         console.error(error)

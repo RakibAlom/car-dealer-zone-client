@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
@@ -28,7 +28,7 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
       buyerPhone: data.phoneNumber,
       location: data.location,
       paymentStatus: false,
-      BookingDate: date,
+      bookingDate: date,
     }
     // save doctor information to the database
     fetch('https://car-dealer-zone-server.vercel.app/booking', {
@@ -41,7 +41,6 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result)
         if (result.acknowledged) {
           toast.success(`${data.name} is added successfully`);
           navigate('/dashboard/bookings')
@@ -60,7 +59,6 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
           <label htmlFor={htmlFor} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
           <h3 className="font-bold text-2xl text-center mb-5 pt-1">Fill the Form to Book the Product</h3>
           <div className="">
-
             <form onSubmit={handleSubmit(handleBooking)} className='flex flex-col gap-3'>
               <div>
                 <p className="pb-2">User Name</p>
@@ -97,11 +95,19 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
                 <label htmlFor={htmlFor} className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transhtmlFor=m border border-gray-200 rounded-md sm:mt-0 sm:w-auto sm:mx-2 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40 cursor-pointer">
                   Cancel
                 </label>
-                <label htmlFor={htmlFor}>
-                  <button type='submit' className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transhtmlFor=m bg-blue-600 rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer" disabled={disabled}>
-                    {successButtonName}
-                  </button>
-                </label>
+                {
+                  user && user.uid ?
+                    <label htmlFor={htmlFor}>
+                      <button type='submit' className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transhtmlFor=m bg-blue-600 rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer" disabled={disabled}>
+                        {successButtonName}
+                      </button>
+                    </label>
+                    :
+                    <Link to="/login" className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transhtmlFor=m bg-blue-600 rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer">
+                      Login First
+                    </Link>
+                }
+
               </div>
             </form>
           </div>

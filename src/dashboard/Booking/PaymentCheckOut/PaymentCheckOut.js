@@ -1,7 +1,11 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { FaDollarSign } from 'react-icons/fa';
 
-const CheckoutForm = ({ booking }) => {
+const PaymentCheckOut = ({ booking, closingModal, refetch }) => {
+  const paymentDate = format(new Date(), 'PP')
   const [cardError, setCardError] = useState('');
   const [success, setSuccess] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -10,21 +14,21 @@ const CheckoutForm = ({ booking }) => {
 
   const stripe = useStripe();
   const elements = useElements();
-  const { name, price, email, userId, productId, _id } = booking;
-  console.log(price)
+  const { productId, productName, priceAmount, ProdcutBrand, UserId, name, bookingDate, buyerPhone, email } = booking;
 
   useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
     fetch("https://car-dealer-zone-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `bearer ${localStorage.getItem('access-token')}`
+        authorization: `bearer ${localStorage.getItem('accessToken')}`
       },
-      body: JSON.stringify({ price }),
+      body: JSON.stringify({ priceAmount }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, [price]);
+  }, [priceAmount]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,16 +77,13 @@ const CheckoutForm = ({ booking }) => {
       console.log('card info', card);
       // store payment info in the database
       const payment = {
-        price,
-        transactionId: paymentIntent.id,
-        email,
-        bookingId: _id
+        productId, productName, priceAmount, ProdcutBrand, UserId, bookingId: booking._id, bookingDate, buyerPhone, name, email, paymentDate
       }
       fetch('https://car-dealer-zone-server.vercel.app/payments', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
-          authorization: `bearer ${localStorage.getItem('access-token')}`
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
         },
         body: JSON.stringify(payment)
       })
@@ -90,9 +91,16 @@ const CheckoutForm = ({ booking }) => {
         .then(data => {
           console.log(data);
           if (data.insertedId) {
-            setSuccess('Congrats ,your payment completed!');
+            refetch();
+            setSuccess('Congrats! your payment completed');
             setTransactionId(paymentIntent.id);
+            toast.success('Congrats! your payment completed');
+            closingModal();
           }
+        })
+        .catch(error => {
+          console.error(error)
+          toast.error('Something happened wrong!');
         })
     }
     setProcessing(false);
@@ -120,10 +128,13 @@ const CheckoutForm = ({ booking }) => {
           }}
         />
         <button
-          className='btn btn-sm mt-4 btn-primary'
+          className='mt-5 btn btn-sm bg-secondary text-white rounded-md inline-flex gap-1 hover:bg-primary border-0 capitalize'
           type="submit"
           disabled={!stripe || !clientSecret || processing}>
-          Pay
+          {
+            processing ? 'Loading...'
+              : <><FaDollarSign /> Pay</>
+          }
         </button>
       </form>
       <p className="text-red-500">{cardError}</p>
@@ -137,4 +148,4 @@ const CheckoutForm = ({ booking }) => {
   );
 };
 
-export default CheckoutForm;
+export default PaymentCheckOut;

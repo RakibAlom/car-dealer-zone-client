@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-const BookingData = ({ booking, setDeleteBooking, count }) => {
+const BookingData = ({ booking, setDeleteBooking, count, bookingsPayment, refetch }) => {
   const { productId } = booking;
   const [loading, setLoading] = useState(false);
   const [bookingPorduct, setBookingPorduct] = useState(null)
@@ -12,8 +12,9 @@ const BookingData = ({ booking, setDeleteBooking, count }) => {
       .then(data => {
         setBookingPorduct(data)
         setLoading(false)
+        refetch();
       })
-  }, [productId])
+  }, [productId, refetch])
 
   return (
     <>
@@ -50,26 +51,26 @@ const BookingData = ({ booking, setDeleteBooking, count }) => {
           {bookingPorduct?.sellStatus === true ?
             <label className="badge badge-success text-white">available</label>
             :
-            <button className="badge badge-ghost" disabled>not available</button>
+            <button className="badge badge-ghost" disabled>sold</button>
           }
         </td>
         <td>
           {
             bookingPorduct?.sellStatus === true ?
               booking?.paymentStatus === false ?
-                <Link to={`/dashboard/payment/${booking._id}`}>
-                  <label className="btn btn-sm rounded text-white">Pay</label>
-                </Link>
-                :
-                <button className="btn btn-sm rounded text-white" disabled>Paid</button>
+                <label onClick={() => bookingsPayment(booking)} htmlFor="paymentModal" className="btn btn-sm rounded text-white">Pay</label>
+                : null
               : null
           }
+
+          {booking?.paymentStatus === true && <button className="btn btn-sm rounded text-white" disabled>Paid</button>}
 
         </td>
         <th>
           <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteBooking(booking)}><FaTrashAlt></FaTrashAlt></label>
         </th>
       </tr>
+
     </>
   );
 };

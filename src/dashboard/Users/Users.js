@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -40,18 +41,14 @@ const Users = () => {
 
 
   const handleUserDelete = (user) => {
-    fetch(`https://car-dealer-zone-server.vercel.app/user/${user._id}`, {
-      method: 'DELETE',
+    axios.delete(`https://car-dealer-zone-server.vercel.app/user/${user._id}`, {
       headers: {
         authorization: `bearer ${localStorage.getItem('access-token')}`
       }
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.deletedCount > 0) {
-          refetch()
-          toast.success(`User ${user.name} deleted successfully!`)
-        }
+      .then(() => {
+        refetch()
+        toast.success(`User ${user.name} deleted successfully!`)
       })
       .catch(err => {
         console.error(err.message)
@@ -103,10 +100,18 @@ const Users = () => {
                     }
                   </td>
                   <th>
-                    <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)}><FaTrashAlt></FaTrashAlt></label>
+                    {user?.userType !== 'admin' && <label htmlFor="confirmAlert" className="btn btn-sm btn-error rounded text-white cursor-pointer" onClick={() => setDeleteUser(user)}><FaTrashAlt></FaTrashAlt></label>
+                    }
                   </th>
                 </tr>
               )
+            }
+            {users.length <= 0 &&
+              <tr>
+                <td colSpan="6">
+                  <h2 className='text-center font-bold'>No User Found</h2>
+                </td>
+              </tr>
             }
           </tbody>
         </table>
