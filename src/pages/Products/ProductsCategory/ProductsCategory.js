@@ -4,7 +4,7 @@ import LoadingSpinner from '../../../dashboard/utilities/LoadingSpinner/LoadingS
 import ProductsCategoryCard from './ProductsCategoryCard/ProductsCategoryCard';
 
 const ProductsCategory = () => {
-  const url = `http://localhost:5000/categories`
+  const url = `https://car-dealer-zone-server.vercel.app/categories`
 
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ['categories'],

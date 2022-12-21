@@ -31,7 +31,7 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
       bookingDate: date,
     }
     // save doctor information to the database
-    fetch('http://localhost:5000/booking', {
+    fetch('https://car-dealer-zone-server.vercel.app/booking', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -92,18 +92,18 @@ const BookNowModal = ({ htmlFor, successButtonName, modalData }) => {
               </div>
 
               <div className="modal-action">
-                <label htmlFor={htmlFor} className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transhtmlFor=m border border-gray-200 rounded-md sm:mt-0 sm:w-auto sm:mx-2 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40 cursor-pointer">
+                <label htmlFor={htmlFor} className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:mt-0 sm:w-auto sm:mx-2 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40 cursor-pointer">
                   Cancel
                 </label>
                 {
                   user && user.uid ?
                     <label htmlFor={htmlFor}>
-                      <button type='submit' className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transhtmlFor=m bg-blue-600 rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer" disabled={disabled}>
+                      <button type='submit' className={`w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-md sm:w-auto sm:mt-0 ${disabled ? 'bg-gray-400' : 'bg-blue-600  hover:bg-blue-500'} focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer`} disabled={disabled}>
                         {successButtonName}
                       </button>
                     </label>
                     :
-                    <Link to="/login" className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transhtmlFor=m bg-blue-600 rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer">
+                    <Link to="/login" className="w-full px-4 py-2 mt-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md sm:w-auto sm:mt-0 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 cursor-pointer">
                       Login First
                     </Link>
                 }

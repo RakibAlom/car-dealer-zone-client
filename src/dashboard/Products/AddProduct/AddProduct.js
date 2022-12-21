@@ -18,7 +18,7 @@ const AddProduct = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/categories');
+      const res = await fetch('https://car-dealer-zone-server.vercel.app/categories');
       const data = await res.json();
       return data;
     }
@@ -28,7 +28,7 @@ const AddProduct = () => {
   const { data: brands = [] } = useQuery({
     queryKey: ['brands'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/brands');
+      const res = await fetch('https://car-dealer-zone-server.vercel.app/brands');
       const data = await res.json();
       return data;
     }
@@ -76,7 +76,7 @@ const AddProduct = () => {
           }
 
           // save doctor information to the database
-          fetch('http://localhost:5000/product', {
+          fetch('https://car-dealer-zone-server.vercel.app/product', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',
@@ -108,14 +108,14 @@ const AddProduct = () => {
               <div className="bg-white px-4 py-5 sm:p-6">
                 <div className="grid grid-cols-12 gap-6">
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Car Name</label>
+                    <label for="name" className="block text-sm font-medium text-gray-700 mb-2">Car Name</label>
                     <input type="text" {...register("name", {
                       required: "Name is Required"
                     })} id="name" autoComplete="name" placeholder='ex: Tesla Model X' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                   </div>
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="registrationYear" className="block text-sm font-medium text-gray-700 mb-2">Registration Year</label>
+                    <label for="registrationYear" className="block text-sm font-medium text-gray-700 mb-2">Registration Year</label>
                     <input type="text"  {...register("registrationYear", {
                       required: "Car name required"
                     })} id="registrationYear" autoComplete="registrationYear" placeholder='ex: 2020' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -123,7 +123,7 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+                    <label for="category" className="block text-sm font-medium text-gray-700">Category</label>
                     <select id="category" {...register("category", {
                       required: "Category required"
                     })} className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm" required>
@@ -138,7 +138,7 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand</label>
+                    <label for="brand" className="block text-sm font-medium text-gray-700">Brand</label>
                     <select id="brand" {...register("brand", {
                       required: "Brand required"
                     })} className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm" required>
@@ -153,7 +153,7 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="sellPrice" className="block text-sm font-medium text-gray-700 mb-2">Sell Price</label>
+                    <label for="sellPrice" className="block text-sm font-medium text-gray-700 mb-2">Sell Price</label>
                     <input type="text" {...register("sellPrice", {
                       required: "Sell Price required"
                     })} id="sellPrice" autoComplete="sellPrice" placeholder='ex: 18000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -161,12 +161,12 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="originalPrice" className="block text-sm font-medium text-gray-700 mb-2">Original Price (Optional)</label>
+                    <label for="originalPrice" className="block text-sm font-medium text-gray-700 mb-2">Original Price (Optional)</label>
                     <input type="text" {...register("originalPrice")} id="originalPrice" autoComplete="originalPrice" placeholder='ex: 24000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="conditionType" className="block text-sm font-medium text-gray-700">Condition Type</label>
+                    <label for="conditionType" className="block text-sm font-medium text-gray-700">Condition Type</label>
                     <select id="conditionType" {...register("conditionType", {
                       required: "Condition Type required"
                     })} className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm" required>
@@ -178,7 +178,7 @@ const AddProduct = () => {
                   </div>
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+                    <label for="mobileNumber" className="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
                     <input type="text" {...register("mobileNumber", {
                       required: 'Mobile Number is required.'
                     })} id="mobileNumber" autoComplete="mobileNumber" placeholder='ex: 017000000000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -186,7 +186,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                    <label for="location" className="block text-sm font-medium text-gray-700 mb-2">Location</label>
                     <input type="text" {...register("location", {
                       required: 'Location is required.'
                     })} id="location" autoComplete="location" placeholder='ex: Lamapara, Sylhet' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -194,7 +194,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="productThumbnail" className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
+                    <label for="productThumbnail" className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
                     <input type="file" {...register("productThumbnail", {
                       required: "Product image required"
                     })} id="productThumbnail" className="file-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -202,7 +202,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="mileage" className="block text-sm font-medium text-gray-700 mb-2">Mileage</label>
+                    <label for="mileage" className="block text-sm font-medium text-gray-700 mb-2">Mileage</label>
                     <input type="text" {...register("mileage", {
                       required: 'Mileage is required.'
                     })} id="mileage" autoComplete="mileage" placeholder='ex: 14,000' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -210,7 +210,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="fuelType" className="block text-sm font-medium text-gray-700 mb-2">Fuel Type</label>
+                    <label for="fuelType" className="block text-sm font-medium text-gray-700 mb-2">Fuel Type</label>
                     <input type="text" {...register("fuelType", {
                       required: 'Fule type is required'
                     })} id="fuelType" autoComplete="fuelType" placeholder='ex: Octane' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -218,17 +218,17 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="engineCapacity" className="block text-sm font-medium text-gray-700 mb-2">Engine Capacity (Optional)</label>
+                    <label for="engineCapacity" className="block text-sm font-medium text-gray-700 mb-2">Engine Capacity (Optional)</label>
                     <input type="text" {...register("engineCapacity")} id="engineCapacity" autoComplete="engineCapacity" placeholder='ex: 1500 cc' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="seats" className="block text-sm font-medium text-gray-700 mb-2">Seats (Optional)</label>
+                    <label for="seats" className="block text-sm font-medium text-gray-700 mb-2">Seats (Optional)</label>
                     <input type="text" {...register("seats")} id="seats" autoComplete="seats" placeholder='ex: 5' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" />
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="transmission" className="block text-sm font-medium text-gray-700 mb-2">Transmission</label>
+                    <label for="transmission" className="block text-sm font-medium text-gray-700 mb-2">Transmission</label>
                     <input type="text" {...register("transmission", {
                       required: 'Transmission is required'
                     })} id="transmission" autoComplete="" placeholder='ex: Automatic' className="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" required />
@@ -236,7 +236,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12 md:col-span-6">
-                    <label htmlFor="adsStatus" className="block text-sm font-medium text-gray-700 mb-2">Want Product Ads?</label>
+                    <label for="adsStatus" className="block text-sm font-medium text-gray-700 mb-2">Want Product Ads?</label>
                     <select id="adsStatus" {...register("adsStatus")} autoComplete="adsStatus" className="select mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-[#f06425] focus:outline-none focus:ring-[#f06425] sm:text-sm">
                       <option defaultValue="no">no</option>
                       <option defaultValue="yes">yes</option>
@@ -244,7 +244,7 @@ const AddProduct = () => {
                   </div >
 
                   <div className="col-span-12">
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <label for="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
                     <textarea {...register("description", {
                       required: 'Description is required'
                     })} id="description" autoComplete="description" className="textarea mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#f06425] focus:ring-[#f06425]" rows="6" placeholder="Enter your product details" required></textarea>

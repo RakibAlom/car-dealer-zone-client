@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import paymentSystem from '../../assets/images/payment-system.webp'
 
 const Footer = () => {
+
+  const [brands, setBrands] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    fetch(`https://car-dealer-zone-server.vercel.app/categories`)
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data)
+        setLoading(false)
+      })
+  }, [])
+
+  useEffect(() => {
+    fetch(`https://car-dealer-zone-server.vercel.app/brands`)
+      .then(res => res.json())
+      .then(data => {
+        setBrands(data)
+        setLoading(false)
+      })
+  }, [])
   return (
     <>
 
@@ -17,24 +40,27 @@ const Footer = () => {
               <p>&copy; Copyright - Rakib Alom</p>
             </div>
             <div>
-              <span className="footer-title">Services</span>
-              <a className="link link-hover">Branding</a>
-              <a className="link link-hover">Design</a>
-              <a className="link link-hover">Marketing</a>
-              <a className="link link-hover">Advertisement</a>
+              <span className="footer-title">Categories</span>
+              {
+                categories.slice(0, 4).map((item, i) =>
+                  <Link className="link link-hover" key={i} to={`/category/${item.slug}`}>{item.name}</Link>
+                )
+              }
             </div>
             <div>
-              <span className="footer-title">Company</span>
-              <a className="link link-hover">About us</a>
-              <a className="link link-hover">Contact</a>
-              <a className="link link-hover">Jobs</a>
-              <a className="link link-hover">Press kit</a>
+              <span className="footer-title">Brands</span>
+              {
+                brands.slice(0, 4).map((item, i) =>
+                  <Link className="link link-hover" key={i} to={`/brand/${item.slug}`}>{item.name}</Link>
+                )
+              }
             </div>
             <div>
-              <span className="footer-title">Legal</span>
-              <a className="link link-hover">Terms of use</a>
-              <a className="link link-hover">Privacy policy</a>
-              <a className="link link-hover">Cookie policy</a>
+              <span className="footer-title">Other</span>
+              <Link className="link link-hover" to="/blog">Blog</Link>
+              <Link className="link link-hover" to="/about">About</Link>
+              <Link className="link link-hover" to="/contact">Contact</Link>
+              <Link className="link link-hover" to="/privacy-policy">Privacy Policy</Link>
             </div>
           </div>
         </div>
